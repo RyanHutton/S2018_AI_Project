@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2d404d58-69da-4401-b967-867e1bba7d8e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/classificationMethod.py" beforeDir="false" afterPath="$PROJECT_DIR$/classificationMethod.py" afterDir="false" />
-    </list>
+    <list default="true" id="2d404d58-69da-4401-b967-867e1bba7d8e" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +23,8 @@
       <file leaf-file-name="naiveBayes.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/naiveBayes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="34" lean-forward="true" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+            <state relative-caret-position="253">
+              <caret line="158" lean-forward="true" selection-end-line="168" selection-end-column="4" />
               <folding>
                 <element signature="e#417#428#0" expanded="true" />
               </folding>
@@ -249,8 +247,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/naiveBayes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="34" lean-forward="true" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+        <state relative-caret-position="253">
+          <caret line="158" lean-forward="true" selection-end-line="168" selection-end-column="4" />
           <folding>
             <element signature="e#417#428#0" expanded="true" />
           </folding>
