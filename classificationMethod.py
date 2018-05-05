@@ -50,7 +50,7 @@ class ClassificationMethod:
     This function returns a list of labels, each drawn from the set of legal labels
     provided to the classifier upon construction.
 
-    To make the classifier generic to multiple problems, the data should be represented
+    To make the classifier generic to multiple problems, the data should  be represented
     as lists of Counters containing feature descriptions and their counts.
     """
     abstract
