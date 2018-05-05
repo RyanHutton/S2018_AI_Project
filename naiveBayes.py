@@ -37,7 +37,7 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
       
     # might be useful in your code later...
     # this is a list of all features in the training set.
-    self.features = list(set([ f for datum in trainingData for f in datum.keys() ]));
+    self.features = list(set([f for datum in trainingData for f in datum.keys()]));
     
     if (self.automaticTuning):
         kgrid = [0.001, 0.01, 0.05, 0.1, 0.5, 1, 5, 10, 20, 50]
@@ -60,8 +60,58 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
     self.legalLabels.
     """
 
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    count = util.Counter()
+    for i in trainingLabels:
+      count[i] += 1
+    count.normalize()
+    self.count = count
+
+
+
+    n = {}
+    tot = {}
+    for i in self.features:
+        n[i] = {0: util.Counter(), 1: util.Counter()}
+        tot[i] = util.Counter()
+
+
+    for i, datum in enumerate(trainingData):
+        y = trainingLabels[i]
+        for j, v in datum.items():
+            n[j][v][y] += 1.0
+            tot[j][y] += 1.0
+
+    bc = {}
+    acc = None
+
+    for k in kgrid or [0.0]:
+        right = 0
+        conditionals = {}
+        for i in self.features:
+            conditionals[i] = {0: util.Counter(), 1: util.Counter()}
+
+
+        for i in self.features:
+            for v in [0, 1]:
+                for y in self.legalLabels:
+                    conditionals[i][v][y] = (n[i][v][y] + k) / (tot[i][y] + k * 2)
+
+
+        self.conditionals = conditionals
+        guess = self.classify(validationData)
+        for i, g in enumerate(guess):
+            right += (validationLabels[i] == g and 1.0 or 0.0)
+        accuracy = right / len(guess)
+
+
+        if accuracy > acc or acc is None:
+            acc = accuracy
+            bc = conditionals
+            self.k = k
+
+    self.conditionals = bc
+
+
         
   def classify(self, testData):
     """
@@ -87,11 +137,15 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
     self.legalLabels.
     """
     logJoint = util.Counter()
-    
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
-    
+
+    for i in self.legalLabels:
+        logJoint[i] = math.log(self.count[i])
+        for j in self.conditionals:
+            prob = self.conditionals[j][datum[j]][i]
+            logJoint[i] += (prob and math.log(prob) or 0.0)
+
     return logJoint
+
   
   def findHighOddsFeatures(self, label1, label2):
     """
@@ -101,9 +155,15 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
     Note: you may find 'self.features' a useful way to loop through all possible features
     """
     featuresOdds = []
-       
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+
+    for i in self.features:
+        top = self.conditionals[i][1][label1]
+        bottom = self.conditionals[i][1][label2]
+        ratio = top / bottom
+        featuresOdds.append((i, ratio))
+
+    featuresOdds = [f for f, odds in sorted(featuresOdds, key=lambda t: -t[1])[:100]]
 
     return featuresOdds
     
